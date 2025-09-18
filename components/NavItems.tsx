@@ -18,7 +18,7 @@ const NavItems = () => {
 
 
   return (
-    <nav className="flex items-center-gap-4">
+    <nav className="flex items-center gap-4">
       {navItems.map(({label, href}) =>(
         <Link 
         href={href} 
@@ -27,6 +27,7 @@ const NavItems = () => {
             {label}
         </Link>
       ))}
+      
     </nav>
   )
 }
