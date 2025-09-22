@@ -205,14 +205,20 @@ body {
   }
 
   .transcript {
-    @apply relative flex flex-col gap-4 w-full items-center pt-10 h-screen overflow-hidden;
-  }
-  .transcript-message {
-    @apply overflow-y-auto w-full flex flex-col gap-4 max-sm:gap-2 pr-2 h-full text-2xl;
-  }
-  .transcript-fade {
+    @apply relative flex flex-col gap-4 w-full items-center pt-10;
+    min-height: 500px; /* Give it a specific minimum height instead of h-screen */
+    max-height: 80vh; /* Limit maximum height */
+}
+
+.transcript-message {
+    @apply overflow-y-auto w-full flex flex-col gap-4 max-sm:gap-2 pr-2 text-2xl;
+    flex: 1; /* Take available space */
+    min-height: 200px; /* Ensure minimum height */
+}
+
+.transcript-fade {
     @apply pointer-events-none absolute bottom-0 left-0 right-0 h-40 max-sm:h-20 bg-gradient-to-t from-background via-background/90 to-transparent z-10;
-  }
+}
 }
 
 @layer utilities {

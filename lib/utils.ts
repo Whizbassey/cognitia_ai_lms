@@ -53,7 +53,8 @@ export const getSubjectColor = (subject: string) => {
          },
        ],
      },
-     
+     clientMessages: [],
+     serverMessages: [],
    };
    return vapiAssistant;
  };
