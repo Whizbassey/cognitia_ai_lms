@@ -86,9 +86,10 @@ const CompanionsList = ({ title, companions, classNames }: CompanionsListProps) 
 
                 </TableCell>
 
-                );
-            })}
-              </TableBody>
+              </TableRow>
+            );
+          })}
+        </TableBody>
       </Table>
 
     </article>

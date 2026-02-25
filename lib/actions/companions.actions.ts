@@ -45,7 +45,7 @@ export const createCompanion = async (formData: CreateCompanion) => {
 }
 
 export const getAllCompanions = async ({ limit = 10, page = 1, subject, topic }: GetAllCompanions) => {
-    const supabase = createSupabaseClient();
+    const supabase = createSupabaseClient(false);
 
     let query = supabase.from('companions').select();
 
@@ -68,7 +68,7 @@ export const getAllCompanions = async ({ limit = 10, page = 1, subject, topic }:
 }
 
 export const getCompanion = async (id: string) => {
-    const supabase = createSupabaseClient();
+    const supabase = createSupabaseClient(false);
 
     const { data, error } = await supabase
         .from('companions')
@@ -97,7 +97,7 @@ export const addToSessionHistory = async (companionId: string) => {
 }
 
 export const getRecentSessions = async (limit = 10) => {
-    const supabase = createSupabaseClient();
+    const supabase = createSupabaseClient(false);
     const { data, error } = await supabase
         .from('session_history')
         .select('companions:companion_id(*)')

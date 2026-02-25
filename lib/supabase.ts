@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
 import { auth } from "@clerk/nextjs/server"
 
-export const createSupabaseClient = () => {
+export const createSupabaseClient = (useAuth = true) => {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
@@ -13,7 +13,11 @@ export const createSupabaseClient = () => {
         throw new Error('Missing NEXT_PUBLIC_SUPABASE_ANON_KEY environment variable');
     }
 
-    console.log('Creating Supabase client with URL:', supabaseUrl);
+    // For public (unauthenticated) reads, skip the Clerk auth token entirely.
+    // Calling auth() on public pages where no session exists can cause fetch failures.
+    if (!useAuth) {
+        return createClient(supabaseUrl, supabaseAnonKey);
+    }
 
     return createClient(supabaseUrl, supabaseAnonKey, {
         async accessToken() {
