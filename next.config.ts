@@ -1,6 +1,15 @@
 import { withSentryConfig } from "@sentry/nextjs";
 import type { NextConfig } from "next";
 
+const isCiOrVercel = process.env.CI === "true" || process.env.VERCEL === "1";
+const isSentryDisabled =
+  process.env.SENTRY_DISABLED === "1" ||
+  (isCiOrVercel && process.env.SENTRY_ENABLED !== "1");
+
+if (isCiOrVercel && !process.env.TAILWIND_DISABLE_NATIVE) {
+  process.env.TAILWIND_DISABLE_NATIVE = "1";
+}
+
 const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true
@@ -45,5 +54,7 @@ export default withSentryConfig(nextConfig, {
   // See the following for more information:
   // https://docs.sentry.io/product/crons/
   // https://vercel.com/docs/cron-jobs
-  automaticVercelMonitors: true
+  automaticVercelMonitors: true,
+  disableServerWebpackPlugin: isSentryDisabled,
+  disableClientWebpackPlugin: isSentryDisabled
 });
